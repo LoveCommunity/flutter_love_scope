@@ -171,6 +171,22 @@ void main() {
     expect(invokes, 1);
 
   });
+
+  test('FinalSystem test coverage', () async {
+
+    final scope = await Scope.root([
+      FinalSystem<String, String>(
+        equal: (scope) => _createTestSystem(),
+        lazy: false,
+      ),
+    ]);
+
+    scope.getStates<String>();
+    scope.get<Observer<String>>();
+
+    // expect not throws error
+
+  });
 }
 
 System<String, String> _createTestSystem({
