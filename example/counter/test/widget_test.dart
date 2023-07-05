@@ -26,5 +26,11 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+
+    // Verify that our counter restore to 0.
+    await tester.pump(const Duration(seconds: 3));
+
+    expect(find.text('0'), findsOneWidget);
+    expect(find.text('1'), findsNothing);
   });
 }
