@@ -1,7 +1,5 @@
 
-import 'package:flutter_love_scope/src/final_system.dart';
-import 'package:flutter_scope/flutter_scope.dart';
-import 'package:love/love.dart';
+import 'package:flutter_love_scope/flutter_love_scope.dart';
 import 'package:test/test.dart';
 
 void main() {
