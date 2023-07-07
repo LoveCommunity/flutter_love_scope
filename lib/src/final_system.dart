@@ -2,6 +2,59 @@
 import 'package:flutter_scope/flutter_scope.dart';
 import 'package:love/love.dart';
 
+/// `FinalSystem` is a configuration that creates a running system,
+/// then expose it as `States<State>` and `Observer<Event>`.
+/// 
+/// ```dart
+/// 
+/// System<CounterState, CounterEvent> createCounterSystem() { ... }
+/// 
+/// ...
+/// 
+/// FlutterScope(
+///   configure: [
+///     FinalSystem<CounterState, CounterEvent>(
+///       equal: (scope) => createCounterSystem(),
+///     ),
+///   ],
+///   child: Builder(
+///     builder: (context) {
+///       final myCounterStates = context.scope.getStates<CounterState>();
+///       final myEventObserver = context.scope.get<Observer<CounterEvent>>();
+///       return CounterPate(
+///         counterStates: myCounterStates,
+///         onIncreasePressed: () => myEventObserver.onData(Increment()),
+///       );
+///     },
+///   ),
+/// );
+/// ```
+/// 
+/// Which simulates:
+/// 
+/// ```dart
+/// void flutterScope() async {
+/// 
+///   // create a running system then exposes its states and event observer
+///   final System<CounterState, CounterEvent> system = createCounterSystem();
+///   final (states, eventObserver) = runSystemThenExposeStatesAndEventObserver(system);
+///   
+///   // resolve states and event observer in current scope
+///   final States<CounterState> myCounterStates = states;
+///   final Observer<CounterEvent> myEventObserver = eventObserver;
+/// 
+///   // notify user state updates
+///   final observation = states.observe((count) {
+///     print('You have pushed the button this many times: $count');
+///   });
+///   
+///   // simulate user tap increase button asynchronously
+///   await Future.delayed(const Duration(seconds: 3));
+///   myEventObserver.onData(Increment());
+///   
+/// }
+/// ```
+///
 class FinalSystem<State, Event> implements Configurable {
 
   FinalSystem({
