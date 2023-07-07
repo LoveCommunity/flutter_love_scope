@@ -3,7 +3,7 @@ import 'package:flutter_scope/flutter_scope.dart';
 import 'package:love/love.dart';
 
 /// `FinalSystem` is a configuration that creates a running system,
-/// then expose it as `States<State>` and `Observer<Event>`.
+/// then expose its `States<State>` and `Observer<Event>`.
 /// 
 /// ```dart
 /// 
@@ -21,7 +21,7 @@ import 'package:love/love.dart';
 ///     builder: (context) {
 ///       final myCounterStates = context.scope.getStates<CounterState>();
 ///       final myEventObserver = context.scope.get<Observer<CounterEvent>>();
-///       return CounterPate(
+///       return CounterPage(
 ///         counterStates: myCounterStates,
 ///         onIncreasePressed: () => myEventObserver.onData(Increment()),
 ///       );
@@ -43,8 +43,8 @@ import 'package:love/love.dart';
 ///   final States<CounterState> myCounterStates = states;
 ///   final Observer<CounterEvent> myEventObserver = eventObserver;
 /// 
-///   // notify user state updates
-///   final observation = states.observe((count) {
+///   // notify user about state updates
+///   final observation = myCounterStates.observe((count) {
 ///     print('You have pushed the button this many times: $count');
 ///   });
 ///   
